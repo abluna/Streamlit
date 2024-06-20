@@ -4,6 +4,12 @@ import streamlit as st
 from PIL import Image
 import tensorflow as tf
 
+from huggingface_hub import from_pretrained_keras
+from tensorflow.keras.preprocessing import image
+from keras.applications.inception_v3 import preprocess_input, decode_predictions
+
+model = from_pretrained_keras("abluna/dogbreed", token = "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")
+
 st.write("""
 # Dog Classification Tool
 Testing this app
@@ -32,7 +38,7 @@ with cent_co:
             original_image = Image.open(img)
             rotated_image = original_image.rotate(180)
             st.image(rotated_image, caption='Rotated Image', width = 250)
-    
+ 
 ###########################
 ## Importing Keras Model ##
 ###########################
@@ -40,12 +46,6 @@ with cent_co:
 if img is not None:
     if st.button("Predict Breed"):
         with st.spinner('Wait for it...'):
-
-            from huggingface_hub import from_pretrained_keras
-            from tensorflow.keras.preprocessing import image
-            from keras.applications.inception_v3 import preprocess_input, decode_predictions
-            
-            model = from_pretrained_keras("abluna/dogbreed", token = "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")
                
              # `img` is a PIL image of size 224x224
             img_v2 = image.load_img(img, target_size=(250, 250))
