@@ -39,28 +39,30 @@ with cent_co:
 
 if img is not None:
     if st.button("Predict Breed"):
+        with st.spinner('Wait for it...'):
 
-        from huggingface_hub import from_pretrained_keras 
-        model = from_pretrained_keras("abluna/dogbreed", token = "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")
-           
-         # `img` is a PIL image of size 224x224
-        img_v2 = Image.open(img)
-        img_v2 = img_v2.resize((250, 250))
+            from huggingface_hub import from_pretrained_keras
+            from tensorflow.keras.preprocessing import image
+            
+            model = from_pretrained_keras("abluna/dogbreed", token = "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")
+               
+             # `img` is a PIL image of size 224x224
+            img_v2 = image.load_img(img, target_size=(250, 250))
 
-        # `x` is a float32 Numpy array of shape (300, 300, 3)
-        x = Image.img_to_array(img_v2)
+            # `x` is a float32 Numpy array of shape (300, 300, 3)
+            x = image.img_to_array(img_v2)
 
-        # We add a dimension to transform our array into a "batch"
-        # of size (1, 300, 300, 3)
-        x = np.expand_dims(x, axis=0)
+            # We add a dimension to transform our array into a "batch"
+            # of size (1, 300, 300, 3)
+            x = np.expand_dims(x, axis=0)
 
-        # Finally we preprocess the batch
-        # (this does channel-wise color normalization)
-        x = preprocess_input(x)
+            # Finally we preprocess the batch
+            # (this does channel-wise color normalization)
+            x = preprocess_input(x)
 
-        preds = model.predict(x)
-        NumPredicted = np.argmax(preds[0])
+            preds = model.predict(x)
+            NumPredicted = np.argmax(preds[0])
 
-        st.write(NumPredicted)
+            st.write(NumPredicted)
         
         
