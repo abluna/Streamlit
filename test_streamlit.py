@@ -38,7 +38,7 @@ with cent_co:
 ###########################
 
 if img is not None:
-    if st.button("Rotate Image"):
+    if st.button("Predict Breed"):
 
         from huggingface_hub import from_pretrained_keras 
         model = from_pretrained_keras("abluna/dogbreed", token = "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")
