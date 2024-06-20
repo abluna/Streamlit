@@ -3,6 +3,8 @@ import numpy as np
 import streamlit as st
 from PIL import Image
 import tensorflow as tf
+from tensorflow.keras.preprocessing import image
+from keras.applications.inception_v3 import preprocess_input, decode_predictions
 
 st.write("""
 # Dog Classification Tool
@@ -17,12 +19,8 @@ Testing this app
 @st.experimental_singleton
 def load_model():
     from huggingface_hub import from_pretrained_keras
-    from tensorflow.keras.preprocessing import image
-    from keras.applications.inception_v3 import preprocess_input, decode_predictions
-
     model = from_pretrained_keras("abluna/dogbreed", token = "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")
     return model
-
 
 #########################
 ## Importing the image ##
