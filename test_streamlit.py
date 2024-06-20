@@ -37,6 +37,11 @@ with cent_co:
 ## Importing Keras Model ##
 ###########################
 
+st.write(f'tensorflow: {tf.__version__}')
+st.write(f'streamlit: {st.__version__}')
+
 from huggingface_hub import from_pretrained_keras 
 
-model = from_pretrained_keras("abluna/dogbreed", token = "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")
+try:
+    model = from_pretrained_keras("abluna/dogbreed", token = "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")
+    
