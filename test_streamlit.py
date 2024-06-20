@@ -37,4 +37,6 @@ with cent_co:
 ## Importing Keras Model ##
 ###########################
 
+from huggingface_hub import from_pretrained_keras 
+
 model = from_pretrained_keras("abluna/dogbreed", token = "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")
