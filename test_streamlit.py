@@ -28,7 +28,7 @@ with cent_co:
 left_co,cent_co,last_co = st.columns(3)
 with cent_co:
     if img is not None:
-        if st.button("Rotate Image", type="primary"):
+        if st.button("Rotate Image"):
             original_image = Image.open(img)
             rotated_image = original_image.rotate(180)
             st.image(rotated_image, caption='Rotated Image', width = 250)
@@ -37,25 +37,28 @@ with cent_co:
 ## Importing Keras Model ##
 ###########################
 
-from huggingface_hub import from_pretrained_keras 
-model = from_pretrained_keras("abluna/dogbreed", token = "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")
-   
- # `img` is a PIL image of size 224x224
-img_actual = Image.load_img(img)
-img = Image.load_img(img_path, target_size=(250, 250))
+if img is not None:
+    if st.button("Rotate Image"):
 
-# `x` is a float32 Numpy array of shape (300, 300, 3)
-x = Image.img_to_array(img)
+    from huggingface_hub import from_pretrained_keras 
+    model = from_pretrained_keras("abluna/dogbreed", token = "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")
+       
+     # `img` is a PIL image of size 224x224
+    img_actual = Image.load_img(img)
+    img = Image.load_img(img_path, target_size=(250, 250))
 
-# We add a dimension to transform our array into a "batch"
-# of size (1, 300, 300, 3)
-x = np.expand_dims(x, axis=0)
+    # `x` is a float32 Numpy array of shape (300, 300, 3)
+    x = Image.img_to_array(img)
 
-# Finally we preprocess the batch
-# (this does channel-wise color normalization)
-x = preprocess_input(x)
+    # We add a dimension to transform our array into a "batch"
+    # of size (1, 300, 300, 3)
+    x = np.expand_dims(x, axis=0)
 
-preds = model.predict(x)
-NumPredicted = np.argmax(preds[0])
+    # Finally we preprocess the batch
+    # (this does channel-wise color normalization)
+    x = preprocess_input(x)
 
-st.write(NumPredicted)
+    preds = model.predict(x)
+    NumPredicted = np.argmax(preds[0])
+
+    st.write(NumPredicted)
