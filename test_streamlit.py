@@ -9,6 +9,21 @@ st.write("""
 Testing this app
 """)
 
+
+######################
+## Import the model ##
+######################
+
+@st.cache_resource()
+def load_model():
+    from huggingface_hub import from_pretrained_keras
+    from tensorflow.keras.preprocessing import image
+    from keras.applications.inception_v3 import preprocess_input, decode_predictions
+
+    model = from_pretrained_keras("abluna/dogbreed", token = "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")
+    return model
+
+
 #########################
 ## Importing the image ##
 #########################
@@ -25,13 +40,14 @@ with cent_co:
 ## Exporting the image ##
 #########################
 
-left_co,cent_co,last_co = st.columns(3)
-with cent_co:
-    if img is not None:
-        if st.button("Rotate Image"):
-            original_image = Image.open(img)
-            rotated_image = original_image.rotate(180)
-            st.image(rotated_image, caption='Rotated Image', width = 250)
+#
+#left_co,cent_co,last_co = st.columns(3)
+#with cent_co:
+#    if img is not None:
+#        if st.button("Rotate Image"):
+#            original_image = Image.open(img)
+#            rotated_image = original_image.rotate(180)
+#            st.image(rotated_image, caption='Rotated Image', width = 250)
  
 ###########################
 ## Importing Keras Model ##
@@ -171,45 +187,43 @@ index_list = {'001.Affenpinscher': 0,
  '132.Xoloitzcuintli': 131,
  '133.Yorkshire_terrier': 132}
 
-
-if img is not None:
-    if st.button("Predict Breed"):
-        with st.spinner('Wait for it...'):
-        
-            from huggingface_hub import from_pretrained_keras
-            from tensorflow.keras.preprocessing import image
-            from keras.applications.inception_v3 import preprocess_input, decode_predictions
-
-            model = from_pretrained_keras("abluna/dogbreed", token = "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")
-               
-             # `img` is a PIL image of size 224x224
-            img_v2 = image.load_img(img, target_size=(250, 250))
-
-            # `x` is a float32 Numpy array of shape (300, 300, 3)
-            x = image.img_to_array(img_v2)
-
-            # We add a dimension to transform our array into a "batch"
-            # of size (1, 300, 300, 3)
-            x = np.expand_dims(x, axis=0)
-
-            # Finally we preprocess the batch
-            # (this does channel-wise color normalization)
-            x = preprocess_input(x)
-
-            preds = model.predict(x)
+left_co,cent_co,last_co = st.columns(3)
+with cent_co:
+    if img is not None:
+        if st.button("Predict Breed"):
+            with st.spinner('Wait for it...'):
             
-            ## Get list of predictions
-            pred_dict = dict(zip(index_list, np.round(preds[0]*100,2)))
-            Sorted_Prediction_Dictionary = sorted(pred_dict.items(), key=lambda x: x[1], reverse=True)
+                # Use the function to load your data
+                tf_model = load_model()
+                             
+                 # `img` is a PIL image of size 224x224
+                img_v2 = image.load_img(img, target_size=(250, 250))
 
-            Count_5Perc = preds[0][preds[0]>0.02]
+                # `x` is a float32 Numpy array of shape (300, 300, 3)
+                x = image.img_to_array(img_v2)
 
-            if len(Count_5Perc) == 1:
-                TopPredictions = Sorted_Prediction_Dictionary[0]
-                to_df = list(TopPredictions)
-                df = pd.DataFrame({'Breed': to_df[0], 'Probability':to_df[1]}, index=[0]) 
-            if len(Count_5Perc) > 1:
-                TopPredictions = Sorted_Prediction_Dictionary[0:len(Count_5Perc)]
-                df = pd.DataFrame(TopPredictions, columns =['Breed', 'Probability'])
-            
-            st.table(df)
+                # We add a dimension to transform our array into a "batch"
+                # of size (1, 300, 300, 3)
+                x = np.expand_dims(x, axis=0)
+
+                # Finally we preprocess the batch
+                # (this does channel-wise color normalization)
+                x = preprocess_input(x)
+
+                preds = model.predict(x)
+                
+                ## Get list of predictions
+                pred_dict = dict(zip(index_list, np.round(preds[0]*100,2)))
+                Sorted_Prediction_Dictionary = sorted(pred_dict.items(), key=lambda x: x[1], reverse=True)
+
+                Count_5Perc = preds[0][preds[0]>0.02]
+
+                if len(Count_5Perc) == 1:
+                    TopPredictions = Sorted_Prediction_Dictionary[0]
+                    to_df = list(TopPredictions)
+                    df = pd.DataFrame({'Breed': to_df[0], 'Probability':to_df[1]}, index=[0]) 
+                if len(Count_5Perc) > 1:
+                    TopPredictions = Sorted_Prediction_Dictionary[0:len(Count_5Perc)]
+                    df = pd.DataFrame(TopPredictions, columns =['Breed', 'Probability'])
+                
+                st.table(df)
