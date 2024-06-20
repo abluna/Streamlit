@@ -41,11 +41,11 @@ from huggingface_hub import from_pretrained_keras
 model = from_pretrained_keras("abluna/dogbreed", token = "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")
    
  # `img` is a PIL image of size 224x224
-img_actual = image.load_img(img)
-img = image.load_img(img_path, target_size=(250, 250))
+img_actual = Image.load_img(img)
+img = Image.load_img(img_path, target_size=(250, 250))
 
 # `x` is a float32 Numpy array of shape (300, 300, 3)
-x = image.img_to_array(img)
+x = Image.img_to_array(img)
 
 # We add a dimension to transform our array into a "batch"
 # of size (1, 300, 300, 3)
