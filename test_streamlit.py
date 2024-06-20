@@ -14,7 +14,7 @@ Testing this app
 ## Import the model ##
 ######################
 
-@st.experimental_singleton()
+@st.experimental_singleton
 def load_model():
     from huggingface_hub import from_pretrained_keras
     from tensorflow.keras.preprocessing import image
