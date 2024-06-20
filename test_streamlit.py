@@ -8,7 +8,7 @@ from keras.applications.inception_v3 import preprocess_input, decode_predictions
 
 st.write("""
 # Dog Classification Tool
-The goal of this tool is to quickly predict a dog's breed based on a single image
+The goal of this tool is to quickly predict a dog's breed based on a single image. \n
 To test a breed prediction, upload a photo and click 'Predict Breed'
 """)
 
