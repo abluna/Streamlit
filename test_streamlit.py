@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 from PIL import Image
-
+import tensorflow as tf
 
 st.write("""
 # Dog Classification Tool
@@ -36,6 +36,7 @@ with cent_co:
 ###########################
 ## Importing Keras Model ##
 ###########################
+
 
 st.write(f'tensorflow: {tf.__version__}')
 st.write(f'streamlit: {st.__version__}')
