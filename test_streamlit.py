@@ -33,3 +33,8 @@ with cent_co:
             rotated_image = original_image.rotate(180)
             st.image(rotated_image, caption='Rotated Image', width = 250)
     
+###########################
+## Importing Keras Model ##
+###########################
+
+model = from_pretrained_keras("abluna/dogbreed", token = "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")
