@@ -206,12 +206,10 @@ if img is not None:
 
             if len(Count_5Perc) == 1:
                 TopPredictions = Sorted_Prediction_Dictionary[0]
+                to_df = list(TopPredictions)
+                df = pd.DataFrame({'Breed': to_df[0], 'Probability':to_df[1]}, index=[0]) 
             if len(Count_5Perc) > 1:
                 TopPredictions = Sorted_Prediction_Dictionary[0:len(Count_5Perc)]
+                df = pd.DataFrame(TopPredictions, columns =['Breed', 'Probability'])
             
-            df = pd.DataFrame.from_dict(TopPredictions, orient='index', columns=['probability'])
-
             st.table(df)
-        
-        
-        
