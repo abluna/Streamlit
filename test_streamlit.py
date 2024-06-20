@@ -43,6 +43,7 @@ if img is not None:
 
             from huggingface_hub import from_pretrained_keras
             from tensorflow.keras.preprocessing import image
+            from keras.applications.inception_v3 import preprocess_input, decode_predictions
             
             model = from_pretrained_keras("abluna/dogbreed", token = "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")
                
