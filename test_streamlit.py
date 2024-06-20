@@ -225,3 +225,4 @@ if img is not None:
             df['Probability'] = df['Probability'].round(1)
             
             st.table(df)
+            
