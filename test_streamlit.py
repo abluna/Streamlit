@@ -45,7 +45,7 @@ if img is not None:
            
          # `img` is a PIL image of size 224x224
         img_v2 = Image.open(img)
-        img_v2 = im1.resize((250, 250)
+        img_v2 = img_v2.resize((250, 250))
 
         # `x` is a float32 Numpy array of shape (300, 300, 3)
         x = Image.img_to_array(img_v2)
