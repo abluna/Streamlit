@@ -208,7 +208,7 @@ with cent_co:
                 # (this does channel-wise color normalization)
                 x = preprocess_input(x)
 
-                preds = model.predict(x)
+                preds = tf_model.predict(x)
                 
                 ## Get list of predictions
                 pred_dict = dict(zip(index_list, np.round(preds[0]*100,2)))
