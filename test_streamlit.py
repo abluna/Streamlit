@@ -42,6 +42,5 @@ st.write(f'streamlit: {st.__version__}')
 
 from huggingface_hub import from_pretrained_keras 
 
-try:
-    model = from_pretrained_keras("abluna/dogbreed", token = "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")
+model = from_pretrained_keras("abluna/dogbreed", token = "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")
     
