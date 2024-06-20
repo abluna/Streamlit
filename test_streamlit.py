@@ -205,12 +205,13 @@ if img is not None:
             Count_5Perc = preds[0][preds[0]>0.02]
 
             if len(Count_5Perc) == 1:
-            TopPredictions = Sorted_Prediction_Dictionary[0]
+                TopPredictions = Sorted_Prediction_Dictionary[0]
             if len(Count_5Perc) > 1:
-            TopPredictions = Sorted_Prediction_Dictionary[0:len(Count_5Perc)]
+                TopPredictions = Sorted_Prediction_Dictionary[0:len(Count_5Perc)]
             
             df = pd.DataFrame.from_dict(TopPredictions, orient='index', columns=['probability'])
 
             st.table(df)
+        
         
         
