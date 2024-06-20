@@ -37,11 +37,25 @@ with cent_co:
 ## Importing Keras Model ##
 ###########################
 
-
-st.write(f'tensorflow: {tf.__version__}')
-st.write(f'streamlit: {st.__version__}')
-
 from huggingface_hub import from_pretrained_keras 
-
 model = from_pretrained_keras("abluna/dogbreed", token = "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")
-    
+   
+ # `img` is a PIL image of size 224x224
+img_actual = image.load_img(img)
+img = image.load_img(img_path, target_size=(250, 250))
+
+# `x` is a float32 Numpy array of shape (300, 300, 3)
+x = image.img_to_array(img)
+
+# We add a dimension to transform our array into a "batch"
+# of size (1, 300, 300, 3)
+x = np.expand_dims(x, axis=0)
+
+# Finally we preprocess the batch
+# (this does channel-wise color normalization)
+x = preprocess_input(x)
+
+preds = model.predict(x)
+NumPredicted = np.argmax(preds[0])
+
+st.write(NumPredicted)
