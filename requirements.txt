@@ -1,6 +1,6 @@
 Pip
 python==3.12.7
-streamlit==1.13.0
+streamlit==1.40.0
 pandas==2.2.2
 pillow==10.3.0
 numpy
