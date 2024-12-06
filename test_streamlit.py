@@ -884,8 +884,13 @@ bird_index_list = {'Abert_s Towhee Bird': 0,
  'Yellow-throated Warbler Bird': 555,
  'Zone-tailed Hawk Bird': 556}
 
+if option == 'Dog':
+    click_predict_message = 'Predict Dog Breed'
+else: 
+    click_predict_message = 'Predict Bird Species'
+
 if img is not None:
-    if st.button("Predict Breed"):
+    if st.button(click_predict_message):
         with st.spinner('Wait for it...'):
         
             # Use the function to load your data
