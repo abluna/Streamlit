@@ -30,7 +30,7 @@ st.write("You selected:", option)
 def load_model():
 
     dog_model = keras.saving.load_model('hf://abluna/dog_breed_v2')
-    bird_model = keras.saving.load_model('hf://abluna/bird_classification_v3')
+    bird_model = keras.saving.load_model('hf://abluna/bird_classification_v4')
     
     return dog_model, bird_model
 
