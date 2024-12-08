@@ -5,12 +5,12 @@ from PIL import Image
 import tensorflow as tf
 import keras
 from tensorflow.keras.preprocessing import image
-from keras.applications.inception_v3 import preprocess_input, decode_predictions
+from keras.applications.resnet_v2 import preprocess_input, decode_predictions
 
 st.write("""
 # Dog or Bird Classification Tool
 The goal of this tool is to quickly predict a dog's breed or bird species based on a single image. \n
-To test a breed prediction, upload a photo and click 'Predict'
+To run a prediction, upload a photo and click 'Predict'
 """)
 
 option = st.selectbox(
@@ -29,7 +29,7 @@ st.write("You selected:", option)
 @st.cache_resource
 def load_model():
 
-    dog_model = keras.saving.load_model('hf://abluna/dogbreedv20')
+    dog_model = keras.saving.load_model('hf://abluna/dog_breed_v2')
     bird_model = keras.saving.load_model('hf://abluna/bird_classification_v3')
     
     return dog_model, bird_model
@@ -903,7 +903,7 @@ if img is not None:
             else: 
                 tf_model = bird_model
                 index_list = bird_index_list
-                targ_size = 512
+                targ_size = 1042
                          
              # `img` is a PIL image of size 224x224
             img_v2 = image.load_img(img, target_size=(targ_size, targ_size))
