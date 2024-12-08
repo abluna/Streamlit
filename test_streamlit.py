@@ -903,7 +903,7 @@ if img is not None:
             else: 
                 tf_model = bird_model
                 index_list = bird_index_list
-                targ_size = 1042
+                targ_size = 256
                          
              # `img` is a PIL image of size 224x224
             img_v2 = image.load_img(img, target_size=(targ_size, targ_size))
